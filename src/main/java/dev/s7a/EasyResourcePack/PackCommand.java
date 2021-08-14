@@ -19,7 +19,7 @@ public class PackCommand implements CommandExecutor, TabCompleter {
     /**
      * コマンド名
      */
-    public static final String name = "pack";
+    public static final @NotNull String name = "pack";
 
     /**
      * コマンドの登録を行う
@@ -35,12 +35,12 @@ public class PackCommand implements CommandExecutor, TabCompleter {
     }
 
     public static class Argument {
-        public final static String Reload = "reload";
-        public final static String Refresh = "refresh";
-        public final static String Force = "force";
-        public final static String Help = "help";
+        public final static @NotNull String Reload = "reload";
+        public final static @NotNull String Refresh = "refresh";
+        public final static @NotNull String Force = "force";
+        public final static @NotNull String Help = "help";
 
-        public final static List<String> all = List.of(
+        public final static @NotNull List<@NotNull String> all = List.of(
                 Reload,
                 Refresh,
                 Force,
@@ -110,7 +110,7 @@ public class PackCommand implements CommandExecutor, TabCompleter {
      * @param arg       入力中の引数
      * @return 候補に一致する引数
      */
-    private static List<String> complete(List<String> arguments, String arg) {
+    private static @NotNull List<@NotNull String> complete(@NotNull List<@NotNull String> arguments, @NotNull String arg) {
         return arguments.stream().filter((a) -> a.startsWith(arg)).collect(Collectors.toList());
     }
 

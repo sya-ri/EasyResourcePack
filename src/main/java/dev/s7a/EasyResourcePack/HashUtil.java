@@ -21,7 +21,7 @@ public class HashUtil {
      *
      * @see MessageDigest
      */
-    private final static String AlgorithmName = "SHA-1";
+    private final static @NotNull String AlgorithmName = "SHA-1";
 
     /**
      * SHA-1 を計算する
@@ -29,7 +29,7 @@ public class HashUtil {
      * @param filePath ファイルのパス
      * @return SHA-1
      */
-    public static byte @Nullable [] sha1(String filePath) {
+    public static byte @Nullable [] sha1(@NotNull String filePath) {
         Path path = Paths.get(filePath);
         byte @Nullable [] hash;
         MessageDigest messageDigest;
