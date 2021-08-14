@@ -36,10 +36,12 @@ public class PackCommand implements CommandExecutor, TabCompleter {
     public static class Argument {
         public final static String Reload = "reload";
         public final static String Force = "force";
+        public final static String Help = "help";
 
         public final static List<String> all = List.of(
                 Reload,
-                Force
+                Force,
+                Help
         );
     }
 
