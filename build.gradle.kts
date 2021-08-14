@@ -1,4 +1,5 @@
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
+import net.minecrell.pluginyml.bukkit.BukkitPluginDescription.Permission
 
 plugins {
     java
@@ -24,4 +25,14 @@ configure<BukkitPluginDescription> {
     apiVersion = "1.17"
     author = "sya_ri"
     website = "https://github.com/sya-ri/EasyResourcePack"
+    commands {
+        register("pack") {
+            permission = "easyresourcepack.command"
+        }
+    }
+    permissions {
+        register("easyresourcepack.command") {
+            default = Permission.Default.TRUE
+        }
+    }
 }

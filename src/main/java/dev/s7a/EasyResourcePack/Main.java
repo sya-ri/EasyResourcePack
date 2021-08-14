@@ -17,6 +17,7 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         Config.load();
         EventListener.register();
+        PackCommand.register();
     }
 
     /**
