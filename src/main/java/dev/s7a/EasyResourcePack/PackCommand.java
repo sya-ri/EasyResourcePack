@@ -31,7 +31,7 @@ public class PackCommand implements CommandExecutor, TabCompleter {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
                 PackManager.applyToPlayer(player);
-            } else  {
+            } else {
                 sender.sendMessage(Message.OnlyPlayerCommandError);
             }
         } else {

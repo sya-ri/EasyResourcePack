@@ -13,18 +13,19 @@ public class Main extends JavaPlugin {
         plugin = this;
     }
 
+    /**
+     * プラグインのインスタンスを取得する
+     *
+     * @return プラグインのインスタンス
+     */
+    public static @NotNull JavaPlugin getPlugin() {
+        return plugin;
+    }
+
     @Override
     public void onEnable() {
         Config.load();
         EventListener.register();
         PackCommand.register();
-    }
-
-    /**
-     * プラグインのインスタンスを取得する
-     * @return プラグインのインスタンス
-     */
-    public static @NotNull JavaPlugin getPlugin() {
-        return plugin;
     }
 }
