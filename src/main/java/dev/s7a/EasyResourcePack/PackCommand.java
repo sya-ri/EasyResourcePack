@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitScheduler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,11 +36,13 @@ public class PackCommand implements CommandExecutor, TabCompleter {
 
     public static class Argument {
         public final static String Reload = "reload";
+        public final static String Refresh = "refresh";
         public final static String Force = "force";
         public final static String Help = "help";
 
         public final static List<String> all = List.of(
                 Reload,
+                Refresh,
                 Force,
                 Help
         );
@@ -61,6 +64,13 @@ public class PackCommand implements CommandExecutor, TabCompleter {
                 case Argument.Reload: {
                     sender.sendMessage(Message.ReloadCommand);
                     Config.load();
+                    break;
+                }
+                case Argument.Refresh: {
+                    sender.sendMessage(Message.RefreshCommand);
+                    BukkitScheduler scheduler = Bukkit.getScheduler();
+                    JavaPlugin plugin = Main.getPlugin();
+                    scheduler.runTaskAsynchronously(plugin, PackManager::refreshHash);
                     break;
                 }
                 case Argument.Force: {

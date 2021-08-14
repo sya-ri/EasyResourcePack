@@ -47,12 +47,18 @@ public class Message {
     public final static String ReloadCommand = Prefix + ChatColor.WHITE + "コンフィグをリロードします";
 
     /**
+     * SHA-1を再生成する前のメッセージ
+     */
+    public final static String RefreshCommand = Prefix + ChatColor.WHITE + "SHA-1を再生成します";
+
+    /**
      * コマンドヘルプ
      */
     public final static List<String> CommandHelp = List.of(
             Prefix + ChatColor.WHITE + "コマンド一覧",
             ChatColor.GRAY + "- /" + PackCommand.name + ChatColor.GOLD + " リソースパックを再読み込みさせます",
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Reload + ChatColor.GOLD + " コンフィグをリロードします",
+            ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Refresh + ChatColor.GOLD + " SHA-1を再生成します",
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Force + ChatColor.GOLD + " 指定したプレイヤーのリソースパックを再読み込みさせます",
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Help + ChatColor.GOLD + " コマンドヘルプを表示します"
     );
