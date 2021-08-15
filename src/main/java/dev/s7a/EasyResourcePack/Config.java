@@ -44,6 +44,14 @@ public class Config {
         return url;
     }
 
+    public static void setUrl(@Nullable String url) {
+        JavaPlugin plugin = Main.getPlugin();
+        FileConfiguration config = plugin.getConfig();
+        config.set("url", url);
+        plugin.saveConfig();
+        Config.url = url;
+    }
+
     public static byte @Nullable [] getSha1() {
         return sha1;
     }

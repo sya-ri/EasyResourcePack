@@ -2,6 +2,7 @@ package dev.s7a.EasyResourcePack;
 
 import org.bukkit.ChatColor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -34,6 +35,11 @@ public class Message {
     }
 
     /**
+     * URLを入力していなかった時に表示するエラー
+     */
+    public final static @NotNull String NotEnterURLNameError = Prefix + ChatColor.RED + "URLを入力してください";
+
+    /**
      * パックをプレイヤーに適用する前のメッセージ
      *
      * @param name プレイヤー名
@@ -53,12 +59,34 @@ public class Message {
     public final static @NotNull String SHA1Refresh = Prefix + ChatColor.WHITE + "SHA-1を再生成します";
 
     /**
+     * 設定の確認メッセージ
+     *
+     * @param url  ダウンロードURL
+     * @param sha1 ハッシュ値
+     * @return メッセージ
+     */
+    public static @NotNull List<@NotNull String> GetCommand(@Nullable String url, @NotNull String sha1) {
+        return List.of(
+                Prefix + ChatColor.WHITE + "現在の設定",
+                ChatColor.GRAY + "URL: " + ChatColor.GREEN + url,
+                ChatColor.GRAY + "SHA1: " + ChatColor.GREEN + sha1
+        );
+    }
+
+    /**
+     * 設定を変更する前のメッセージ
+     */
+    public final static @NotNull String SetCommand = Prefix + ChatColor.WHITE + "設定を変更します。";
+
+    /**
      * コマンドヘルプ
      */
     public final static @NotNull List<@NotNull String> CommandHelp = List.of(
             Prefix + ChatColor.WHITE + "コマンド一覧",
             ChatColor.GRAY + "- /" + PackCommand.name + ChatColor.GOLD + " リソースパックを再読み込みさせます",
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Reload + ChatColor.GOLD + " コンフィグをリロードします",
+            ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Get + ChatColor.GOLD + " 現在の設定を確認します",
+            ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Set + ChatColor.LIGHT_PURPLE + " <URL>" + ChatColor.GOLD + " リソースパックのURLを変更します",
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Force + ChatColor.GOLD + " 指定したプレイヤーのリソースパックを再読み込みさせます",
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Help + ChatColor.GOLD + " コマンドヘルプを表示します"
     );

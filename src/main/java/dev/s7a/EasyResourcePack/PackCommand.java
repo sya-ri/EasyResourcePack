@@ -37,11 +37,15 @@ public class PackCommand implements CommandExecutor, TabCompleter {
 
     public static class Argument {
         public final static @NotNull String Reload = "reload";
+        public final static @NotNull String Get = "get";
+        public final static @NotNull String Set = "set";
         public final static @NotNull String Force = "force";
         public final static @NotNull String Help = "help";
 
         public final static @NotNull List<@NotNull String> all = List.of(
                 Reload,
+                Get,
+                Set,
                 Force,
                 Help
         );
@@ -65,12 +69,25 @@ public class PackCommand implements CommandExecutor, TabCompleter {
                     String lastUrl = Config.getUrl();
                     Config.load();
                     String url = Config.getUrl();
+                    PackManager.refreshHashIfChanged(sender, lastUrl, url);
+                    break;
+                }
+                case Argument.Get: {
+                    String url = Config.getUrl();
                     byte[] sha1 = Config.getSha1();
-                    if (!Objects.equals(lastUrl, url) || sha1 == null) {
-                        sender.sendMessage(Message.SHA1Refresh);
-                        BukkitScheduler scheduler = Bukkit.getScheduler();
-                        JavaPlugin plugin = Main.getPlugin();
-                        scheduler.runTaskAsynchronously(plugin, PackManager::refreshHash);
+                    String sha1Text = HashUtil.bytesToString(sha1);
+                    sender.sendMessage(Message.GetCommand(url, sha1Text).toArray(new String[0]));
+                    break;
+                }
+                case Argument.Set: {
+                    if (argsLength < 2) {
+                        sender.sendMessage(Message.NotEnterURLNameError);
+                    } else {
+                        sender.sendMessage(Message.SetCommand);
+                        String lastUrl = Config.getUrl();
+                        String url = args[1];
+                        Config.setUrl(url);
+                        PackManager.refreshHashIfChanged(sender, lastUrl, url);
                     }
                     break;
                 }

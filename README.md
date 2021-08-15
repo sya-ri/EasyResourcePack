@@ -6,6 +6,8 @@
 |----------|------|-------------|
 | `/pack` | リソースパックを再度適用します | `easyresourcepack.command` |
 | `/pack reload` | コンフィグをリロードします | `easyresourcepack.command.admin` |
+| `/pack get` | 現在の設定を確認します | `easyresourcepack.command.admin` |
+| `/pack set` | リソースパックのURLを変更します | `easyresourcepack.command.admin` |
 | `/pack force` | 指定したプレイヤーのリソースパックを再度適用します | `easyresourcepack.command.admin` |
 
 ## コンフィグ - `config.yml`
