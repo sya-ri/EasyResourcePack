@@ -58,6 +58,7 @@ public class PackManager {
     public static void refreshHash() {
         String url = Config.getUrl();
         if (url != null && !url.isBlank()) {
+            Config.setSha1(null);
             try {
                 File outputFile = File.createTempFile("temp_", ".zip");
                 String outputPath = outputFile.getAbsolutePath();

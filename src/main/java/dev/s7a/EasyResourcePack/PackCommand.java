@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -36,13 +37,11 @@ public class PackCommand implements CommandExecutor, TabCompleter {
 
     public static class Argument {
         public final static @NotNull String Reload = "reload";
-        public final static @NotNull String Refresh = "refresh";
         public final static @NotNull String Force = "force";
         public final static @NotNull String Help = "help";
 
         public final static @NotNull List<@NotNull String> all = List.of(
                 Reload,
-                Refresh,
                 Force,
                 Help
         );
@@ -63,14 +62,16 @@ public class PackCommand implements CommandExecutor, TabCompleter {
             switch (arg0) {
                 case Argument.Reload: {
                     sender.sendMessage(Message.ReloadCommand);
+                    String lastUrl = Config.getUrl();
                     Config.load();
-                    break;
-                }
-                case Argument.Refresh: {
-                    sender.sendMessage(Message.RefreshCommand);
-                    BukkitScheduler scheduler = Bukkit.getScheduler();
-                    JavaPlugin plugin = Main.getPlugin();
-                    scheduler.runTaskAsynchronously(plugin, PackManager::refreshHash);
+                    String url = Config.getUrl();
+                    byte[] sha1 = Config.getSha1();
+                    if (!Objects.equals(lastUrl, url) || sha1 == null) {
+                        sender.sendMessage(Message.SHA1Refresh);
+                        BukkitScheduler scheduler = Bukkit.getScheduler();
+                        JavaPlugin plugin = Main.getPlugin();
+                        scheduler.runTaskAsynchronously(plugin, PackManager::refreshHash);
+                    }
                     break;
                 }
                 case Argument.Force: {

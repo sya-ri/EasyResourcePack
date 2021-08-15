@@ -50,7 +50,7 @@ public class Message {
     /**
      * SHA-1を再生成する前のメッセージ
      */
-    public final static @NotNull String RefreshCommand = Prefix + ChatColor.WHITE + "SHA-1を再生成します";
+    public final static @NotNull String SHA1Refresh = Prefix + ChatColor.WHITE + "SHA-1を再生成します";
 
     /**
      * コマンドヘルプ
@@ -59,7 +59,6 @@ public class Message {
             Prefix + ChatColor.WHITE + "コマンド一覧",
             ChatColor.GRAY + "- /" + PackCommand.name + ChatColor.GOLD + " リソースパックを再読み込みさせます",
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Reload + ChatColor.GOLD + " コンフィグをリロードします",
-            ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Refresh + ChatColor.GOLD + " SHA-1を再生成します",
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Force + ChatColor.GOLD + " 指定したプレイヤーのリソースパックを再読み込みさせます",
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Help + ChatColor.GOLD + " コマンドヘルプを表示します"
     );
