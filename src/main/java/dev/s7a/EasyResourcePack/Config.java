@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 /**
@@ -45,10 +46,7 @@ public class Config {
     }
 
     public static void setUrl(@Nullable String url) {
-        JavaPlugin plugin = Main.getPlugin();
-        FileConfiguration config = plugin.getConfig();
-        config.set("url", url);
-        plugin.saveConfig();
+        editConfig(config -> config.set("url", url));
         Config.url = url;
     }
 
@@ -57,10 +55,14 @@ public class Config {
     }
 
     public static void setSha1(byte @Nullable [] sha1) {
+        editConfig(config -> config.set("sha1", HashUtil.bytesToString(sha1)));
+        Config.sha1 = sha1;
+    }
+
+    private static void editConfig(Consumer<FileConfiguration> action) {
         JavaPlugin plugin = Main.getPlugin();
         FileConfiguration config = plugin.getConfig();
-        config.set("sha1", HashUtil.bytesToString(sha1));
+        action.accept(config);
         plugin.saveConfig();
-        Config.sha1 = sha1;
     }
 }
