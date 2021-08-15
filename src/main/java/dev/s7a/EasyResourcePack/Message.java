@@ -87,6 +87,7 @@ public class Message {
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Reload + ChatColor.GOLD + " コンフィグをリロードします",
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Get + ChatColor.GOLD + " 現在の設定を確認します",
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Set + ChatColor.LIGHT_PURPLE + " <URL>" + ChatColor.GOLD + " リソースパックのURLを変更します",
+            ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Update + ChatColor.GOLD + " リソースパックのSHA-1を再生成します。ダウンロードされるファイルを変更した時に実行してください",
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Force + ChatColor.GOLD + " 指定したプレイヤーのリソースパックを再読み込みさせます",
             ChatColor.GRAY + "- /" + PackCommand.name + " " + PackCommand.Argument.Help + ChatColor.GOLD + " コマンドヘルプを表示します"
     );

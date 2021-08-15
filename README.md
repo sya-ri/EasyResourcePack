@@ -4,13 +4,25 @@
 
 | コマンド名 | 説明 | パーミッション |
 |----------|------|-------------|
-| `/pack` | リソースパックを再度適用します | `easyresourcepack.command` |
-| `/pack reload` | コンフィグをリロードします | `easyresourcepack.command.admin` |
-| `/pack get` | 現在の設定を確認します | `easyresourcepack.command.admin` |
-| `/pack set` | リソースパックのURLを変更します | `easyresourcepack.command.admin` |
-| `/pack force` | 指定したプレイヤーのリソースパックを再度適用します | `easyresourcepack.command.admin` |
+| `/pack` | リソースパックを再度適用します | general |
+| `/pack reload` | コンフィグをリロードします | admin |
+| `/pack get` | 現在の設定を確認します | admin |
+| `/pack set` | リソースパックのURLを変更します | admin |
+| `/pack update` | リソースパックのSHA-1を再生成します。ダウンロードされるファイルを変更した時に実行してください | admin |
+| `/pack force` | 指定したプレイヤーのリソースパックを再度適用します | admin |
+
+### パーミッション
+
+#### general
+
+`easyresourcepack.command`
+
+#### admin
+
+`easyresourcepack.command.admin`
 
 ## コンフィグ - `config.yml`
+
 サーバー起動後にコンフィグで変更を加えた場合、`/pack reload` を実行してください。
 
 ```yaml

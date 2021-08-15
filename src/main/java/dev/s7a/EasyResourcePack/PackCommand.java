@@ -39,6 +39,7 @@ public class PackCommand implements CommandExecutor, TabCompleter {
         public final static @NotNull String Reload = "reload";
         public final static @NotNull String Get = "get";
         public final static @NotNull String Set = "set";
+        public final static @NotNull String Update = "update";
         public final static @NotNull String Force = "force";
         public final static @NotNull String Help = "help";
 
@@ -46,6 +47,7 @@ public class PackCommand implements CommandExecutor, TabCompleter {
                 Reload,
                 Get,
                 Set,
+                Update,
                 Force,
                 Help
         );
@@ -89,6 +91,13 @@ public class PackCommand implements CommandExecutor, TabCompleter {
                         Config.setUrl(url);
                         PackManager.refreshHashIfChanged(sender, lastUrl, url);
                     }
+                    break;
+                }
+                case Argument.Update: {
+                    sender.sendMessage(Message.SHA1Refresh);
+                    BukkitScheduler scheduler = Bukkit.getScheduler();
+                    JavaPlugin plugin = Main.getPlugin();
+                    scheduler.runTaskAsynchronously(plugin, PackManager::refreshHash);
                     break;
                 }
                 case Argument.Force: {
