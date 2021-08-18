@@ -37,6 +37,21 @@ public class PackManager {
     }
 
     /**
+     * プレイヤーにリソースパックを適用する
+     *
+     * @param player 適用するプレイヤー
+     * @param url    パックのURL
+     * @param sha1   ハッシュ値
+     */
+    public static void applyToPlayer(@NotNull Player player, @NotNull String url, byte @Nullable [] sha1) {
+        if (sha1 != null) {
+            player.setResourcePack(url, sha1);
+        } else {
+            player.setResourcePack(url);
+        }
+    }
+
+    /**
      * リソースパックをダウンロードする
      */
     private static boolean downloadPack(@NotNull String url, @NotNull String outputPath) {
@@ -55,6 +70,19 @@ public class PackManager {
         }
     }
 
+    public static byte @Nullable [] hash(@NotNull String url) {
+        try {
+            File outputFile = File.createTempFile("temp_", ".zip");
+            String outputPath = outputFile.getAbsolutePath();
+            if (downloadPack(url, outputPath)) {
+                return HashUtil.sha1(outputPath);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * SHA1 を更新する
      */
@@ -62,18 +90,12 @@ public class PackManager {
         String url = Config.getUrl();
         if (url != null && !url.isBlank()) {
             Config.setSha1(null);
-            try {
-                File outputFile = File.createTempFile("temp_", ".zip");
-                String outputPath = outputFile.getAbsolutePath();
-                if (downloadPack(url, outputPath)) {
-                    byte[] sha1 = HashUtil.sha1(outputPath);
-                    String sha1Text = HashUtil.bytesToString(sha1);
-                    Config.setSha1(sha1);
-                    JavaPlugin plugin = Main.getPlugin();
-                    plugin.getLogger().info("リソースパックのSHA-1を更新しました: " + sha1Text);
-                }
-            } catch (IOException ex) {
-                ex.printStackTrace();
+            byte[] sha1 = hash(url);
+            if (sha1 != null) {
+                Config.setSha1(sha1);
+                String sha1Text = HashUtil.bytesToString(sha1);
+                JavaPlugin plugin = Main.getPlugin();
+                plugin.getLogger().info("リソースパックのSHA-1を更新しました: " + sha1Text);
             }
         } else {
             Config.setSha1(null);

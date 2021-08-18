@@ -12,8 +12,8 @@ import java.util.logging.Logger;
  * コンフィグ - config.yml
  */
 public class Config {
-    private static @Nullable String url;
     public static byte @Nullable [] sha1;
+    private static @Nullable String url;
 
     /**
      * コンフィグを読み込む

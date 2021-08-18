@@ -10,7 +10,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -35,22 +34,15 @@ public class PackCommand implements CommandExecutor, TabCompleter {
         }
     }
 
-    public static class Argument {
-        public final static @NotNull String Reload = "reload";
-        public final static @NotNull String Get = "get";
-        public final static @NotNull String Set = "set";
-        public final static @NotNull String Update = "update";
-        public final static @NotNull String Force = "force";
-        public final static @NotNull String Help = "help";
-
-        public final static @NotNull List<@NotNull String> all = List.of(
-                Reload,
-                Get,
-                Set,
-                Update,
-                Force,
-                Help
-        );
+    /**
+     * タブ補完を実行します
+     *
+     * @param arguments 全候補
+     * @param arg       入力中の引数
+     * @return 候補に一致する引数
+     */
+    private static @NotNull List<@NotNull String> complete(@NotNull List<@NotNull String> arguments, @NotNull String arg) {
+        return arguments.stream().filter((a) -> a.startsWith(arg)).collect(Collectors.toList());
     }
 
     @Override
@@ -105,19 +97,30 @@ public class PackCommand implements CommandExecutor, TabCompleter {
                         sender.sendMessage(Message.NotEnterPlayerNameError);
                     } else {
                         String arg1 = args[1];
+                        String targetName;
+                        Collection<? extends Player> players;
                         if (arg1.equals("@a")) {
                             Collection<? extends Player> onlinePlayers = Bukkit.getOnlinePlayers();
-                            sender.sendMessage(Message.ApplyPackToPlayer("全プレイヤー(" + onlinePlayers.size() + ")"));
-                            onlinePlayers.forEach(PackManager::applyToPlayer);
+                            targetName = "全プレイヤー(" + onlinePlayers.size() + ")";
+                            players = onlinePlayers;
                         } else {
                             Player targetPlayer = Bukkit.getPlayer(arg1);
                             if (targetPlayer != null) {
-                                String targetPlayerName = targetPlayer.getName();
-                                sender.sendMessage(Message.ApplyPackToPlayer(targetPlayerName));
-                                PackManager.applyToPlayer(targetPlayer);
+                                targetName = targetPlayer.getName();
+                                players = List.of(targetPlayer);
                             } else {
                                 sender.sendMessage(Message.NotFoundPlayerNameError(arg1));
+                                break;
                             }
+                        }
+                        if (argsLength < 3) {
+                            sender.sendMessage(Message.ApplyPackToPlayer(targetName));
+                            players.forEach(PackManager::applyToPlayer);
+                        } else {
+                            String url = args[2];
+                            byte[] sha1 = PackManager.hash(url);
+                            sender.sendMessage(Message.ApplyPackToPlayer(targetName, url, HashUtil.bytesToString(sha1)).toArray(new String[0]));
+                            players.forEach(player -> PackManager.applyToPlayer(player, url, sha1));
                         }
                     }
                     break;
@@ -128,17 +131,6 @@ public class PackCommand implements CommandExecutor, TabCompleter {
             }
         }
         return true;
-    }
-
-    /**
-     * タブ補完を実行します
-     *
-     * @param arguments 全候補
-     * @param arg       入力中の引数
-     * @return 候補に一致する引数
-     */
-    private static @NotNull List<@NotNull String> complete(@NotNull List<@NotNull String> arguments, @NotNull String arg) {
-        return arguments.stream().filter((a) -> a.startsWith(arg)).collect(Collectors.toList());
     }
 
     @Nullable
@@ -162,5 +154,23 @@ public class PackCommand implements CommandExecutor, TabCompleter {
             }
         }
         return List.of();
+    }
+
+    public static class Argument {
+        public final static @NotNull String Reload = "reload";
+        public final static @NotNull String Get = "get";
+        public final static @NotNull String Set = "set";
+        public final static @NotNull String Update = "update";
+        public final static @NotNull String Force = "force";
+        public final static @NotNull String Help = "help";
+
+        public final static @NotNull List<@NotNull String> all = List.of(
+                Reload,
+                Get,
+                Set,
+                Update,
+                Force,
+                Help
+        );
     }
 }

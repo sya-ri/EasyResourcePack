@@ -7,9 +7,10 @@
 | `/pack` | リソースパックを再度適用します | general |
 | `/pack reload` | コンフィグをリロードします | admin |
 | `/pack get` | 現在の設定を確認します | admin |
-| `/pack set` | リソースパックのURLを変更します | admin |
-| `/pack update` | リソースパックのSHA-1を再生成します。ダウンロードされるファイルを変更した時に実行してください | admin |
+| `/pack set <URL>` | リソースパックのURLを変更します | admin |
+| `/pack update` | リソースパックのSHA-1を再生成します | admin |
 | `/pack force` | 指定したプレイヤーのリソースパックを再度適用します | admin |
+| `/pack force <URL>` | 指定したプレイヤーのリソースパックを変更します | admin |
 
 ### パーミッション
 
