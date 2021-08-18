@@ -24,6 +24,7 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        ServerProperties.check();
         Config.load();
         EventListener.register();
         PackCommand.register();
