@@ -29,5 +29,6 @@ public class Main extends JavaPlugin {
         EventListener.register();
         PackCommand.register();
         PackManager.refreshHashOnEnable();
+        PluginMessageListeners.register();
     }
 }
