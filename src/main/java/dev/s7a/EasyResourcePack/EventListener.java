@@ -24,6 +24,7 @@ public class EventListener implements Listener {
 
     @EventHandler
     public void on(PlayerJoinEvent event) {
+        if (!Config.useJoin) return;
         Player player = event.getPlayer();
         BukkitScheduler scheduler = Bukkit.getScheduler();
         JavaPlugin plugin = Main.getPlugin();

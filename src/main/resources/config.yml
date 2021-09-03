@@ -11,4 +11,5 @@
 url: ""
 sha1: ""
 
+use-join: true
 use-plugin-message: false

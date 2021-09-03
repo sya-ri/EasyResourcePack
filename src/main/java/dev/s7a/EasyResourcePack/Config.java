@@ -12,6 +12,7 @@ import java.util.logging.Logger;
  * コンフィグ - config.yml
  */
 public class Config {
+    public static boolean useJoin;
     public static boolean usePluginMessage;
     public static byte @Nullable [] sha1;
     private static @Nullable String url;
@@ -40,6 +41,7 @@ public class Config {
         } else {
             sha1 = null;
         }
+        useJoin = config.getBoolean("use-join", true);
         usePluginMessage = config.getBoolean("use-plugin-message", false);
     }
 

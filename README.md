@@ -40,6 +40,7 @@
 url: ""
 sha1: ""
 
+use-join: true
 use-plugin-message: false
 ```
 
@@ -50,6 +51,14 @@ use-plugin-message: false
 ### sha1
 
 リソースパックのSHA-1をキャッシュしておくための設定であり、直接変更する必要はありません。ただし、`url` を変更した場合は、内容を `""` にしてください。"。
+
+## 参加時の自動適用
+
+```yaml
+use-join: true
+```
+
+にしておく必要があります。
 
 ## プラグインメッセージ
 
