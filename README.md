@@ -63,7 +63,7 @@ use-join: true
 ## プラグインメッセージ
 
 ```yaml
-use-plugin-message: false
+use-plugin-message: true
 ```
 
 にしておく必要があります。
